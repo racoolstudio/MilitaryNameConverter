@@ -1,33 +1,29 @@
-# # list comprehension
-# # new_list = [new_item for new_item in items if new_item < 0]
-# # dictionary comprehension
-# # dict = {something : for i in eyes / for (key,value) in dictionary.items() if (test)}
-# names = ['Alex', 'Beth', 'Cathy', 'Daggy']
-# # so tth goal is to ...
-# # student_score ={
-# # 'name' : score
-# # }
-# import random
-# import pandas
-# student_score = {n: random.randint(1, 100) for n in names}
-# print(student_score)
-# # passed_student = {n: student_score[n] for n in student_score if student_score[n] > 50}
-# # comprenhension= {student : score for (student,score) in student_score.items() if score>50}
-# # weather = {'monday':12,'tuesday':8,'wedsday':15}
-# #
-# # adjusted = {days:temp+30 for (days,temp) in weather.items()}
-#
-# # looping through dataframe
-# stud = {
-#     'Student' : ['Alex', 'Beth', 'Cathy','Daggy'],
-#     'Score' : [312,42,13,4]
-# }
-# stud_pandas = pandas.DataFrame(stud)
-# for (index,row) in stud_pandas.iterrows():
-#     print(row)
+# Import the pandas library for reading CSV files
 import pandas
+
+# Read the 'nato_phonetic_alphabet.csv' file into a DataFrame called 'database'
 database = pandas.read_csv('nato_phonetic_alphabet.csv')
+
+# Create a dictionary called 'database_dict' where the keys are letters and the values are codes,
+# using a dictionary comprehension to iterate through the rows of the 'database' DataFrame
 database_dict = {row.letter: row.code for (index, row) in database.iterrows()}
-user_input = input('Enter Your Name :').upper()
-result = [database_dict[n] for n in user_input if n in database_dict]
-print(result)
+
+# Define a function called 'generator'
+def generator():
+    # Get user input and convert it to uppercase to ensure consistency
+    user_input = input('Enter Your Name: ').upper()
+    
+    try:
+        # Use list comprehension to look up the codes for each letter in the user's input
+        result = [database_dict[n] for n in user_input]
+    except KeyError:
+        # If a letter is not found in the 'database_dict', handle the KeyError and print an error message
+        print('Sorry, only letters in the alphabet please.')
+        # Call the 'generator' function recursively to prompt the user for input again
+        generator()
+    else:
+        # If there are no exceptions, print the result (list of codes)
+        print(result)
+
+# Call the 'generator' function to start the process
+generator()
