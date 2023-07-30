@@ -23,7 +23,8 @@ def generator():
         generator()
     else:
         # If there are no exceptions, print the result (list of codes)
-        print(result)
+         print("Your Military Name 🫡🪖 :\n", " ".join(result))
+
 
 # Call the 'generator' function to start the process
 generator()
